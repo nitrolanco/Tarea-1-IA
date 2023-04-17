@@ -127,9 +127,26 @@ def aStar(initNode, finalNode, valHeuristica, arcos):
         currPath = pQ[0]
         print(currPath)
     visited.append(pQ[0])
-    for a in visited:
-        print(a)
+    pathPrinter(currPath[1:])
+    visitedNodes(visited, valHeuristica)
     return currPath[0]
+
+
+def visitedNodes(visited, valHeuristica):
+    timesVisited = dict()
+    for (node, valH) in valHeuristica:
+        timesVisited[node] = 0
+    for node, value in timesVisited.items():
+        for path in visited:
+            if (node == path[-2]):
+                print("hola")
+                timesVisited[node] += 1
+    for node, value in timesVisited.items():
+        for path in visited:
+            if (timesVisited[node] == 0 and node == path[-1]):
+                timesVisited[node] += 1
+    for node, value in timesVisited.items():
+        print(str(node)+": "+str(value))
 
 
 def avUC(currPath, arcos):
@@ -161,10 +178,12 @@ def uCost(initNode, finalNode, arcos):
         current = pQ[0][-1]
         currPath = pQ[0]
     visited.append(pQ[0])
-    for a in visited:
-        print(a)
+    pathPrinter(currPath[1:])
+    visitedNodes(visited, valHeuristica)
     return currPath[0]
 
 
-print(greedy(initNode, finalNode, valHeuristica, arcos))
+# print(greedy(initNode, finalNode, valHeuristica, arcos))
 # print(dfs(initNode, finalNode, arcos))
+# print(aStar(initNode, finalNode, valHeuristica, arcos))
+print(uCost(initNode, finalNode, arcos))
